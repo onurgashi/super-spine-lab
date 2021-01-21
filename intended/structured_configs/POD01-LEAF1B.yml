@@ -2,7 +2,7 @@ l3leaf_node_group: POD01_LEAF1
 switch_platform: vEOS-LAB
 leaf_bgp_as: 65101
 leaf_id: 2
-switch_mgmt_ip: 192.168.0.6/24
+switch_mgmt_ip: 192.168.1.6/24
 leaf_evpn_services_l2_only: false
 leaf_filter_tenants:
 - all
@@ -97,6 +97,14 @@ bfd_multihop:
   min_rx: 1200
   multiplier: 3
 port_channel_interfaces:
+  Port-Channel4:
+    description: POD01_SUBLEAF1_Po1
+    type: switched
+    shutdown: false
+    vlans: 110-112,4092
+    mode: trunk
+    service_profile: blah
+    mlag: 4
   Port-Channel3:
     description: MLAG_PEER_POD01-LEAF1A_Po3
     type: switched
@@ -138,6 +146,16 @@ ethernet_interfaces:
     channel_group:
       id: 3
       mode: active
+  Ethernet4:
+    peer: POD01-SUBLEAF1A
+    peer_interface: Ethernet2
+    peer_type: l2leaf
+    description: POD01-SUBLEAF1A_Ethernet2
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 4
+      mode: active
 loopback_interfaces:
   Loopback0:
     description: EVPN_Overlay_Peering
@@ -152,7 +170,7 @@ management_interfaces:
     description: oob_management
     shutdown: false
     vrf: MGMT
-    ip_address: 192.168.0.6/24
+    ip_address: 192.168.1.6/24
     gateway: 192.168.1.254
 vlan_interfaces:
   Vlan4093:

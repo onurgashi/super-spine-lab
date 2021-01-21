@@ -2,7 +2,7 @@ l3leaf_node_group: POD01_LEAF2
 switch_platform: vEOS-LAB
 leaf_bgp_as: 65102
 leaf_id: 4
-switch_mgmt_ip: 192.168.0.8/24
+switch_mgmt_ip: 192.168.1.8/24
 leaf_evpn_services_l2_only: false
 leaf_filter_tenants:
 - all
@@ -162,7 +162,7 @@ management_interfaces:
     description: oob_management
     shutdown: false
     vrf: MGMT
-    ip_address: 192.168.0.8/24
+    ip_address: 192.168.1.8/24
     gateway: 192.168.1.254
 vlan_interfaces:
   Vlan4093:

@@ -2,7 +2,7 @@
 # L3LS Fabric Values - update these values with caution,
 # SOME CHANGES COULD BE DISRUPTIVE.
 
-fabric_name: FABRIC_POD01
+fabric_name: POD01
 pod_number: 1
 
 # Point to Point Network Summary range, assigned as /31 for each
@@ -87,18 +87,18 @@ l3leaf:
           spine_interfaces: [Ethernet3, Ethernet3]
         POD01-LEAF1B:
           id: 2
-          mgmt_ip: 192.168.0.6/24
+          mgmt_ip: 192.168.1.6/24
           spine_interfaces: [Ethernet4, Ethernet4]
     POD01_LEAF2:
       bgp_as: 65102
       nodes:
         POD01-LEAF2A:
           id: 3
-          mgmt_ip: 192.168.0.7/24
+          mgmt_ip: 192.168.1.7/24
           spine_interfaces: [Ethernet5, Ethernet5]
         POD01-LEAF2B:
           id: 4
-          mgmt_ip: 192.168.0.8/24
+          mgmt_ip: 192.168.1.8/24
           spine_interfaces: [Ethernet6, Ethernet6]
 
 l2leaf:
@@ -109,17 +109,17 @@ l2leaf:
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
     mlag: false
-    node_groups:
-      POD01_SUBLEAF1:
-        filter:
-          tenants: [ Tenant_A ]
-          tags: [ opzone, web, app ]
-        parent_l3leafs: [POD01-LEAF1A, POD01-LEAF1B]
-        nodes:
-          POD01-SUBLEAF1A:
-            id: 5
-            mgmt_ip: 192.168.1.9/24
-            l3leaf_interfaces: [Ethernet4, Ethernet4]
+  node_groups:
+    POD01_SUBLEAF1:
+      filter:
+        tenants: [ Tenant_A ]
+        tags: [ opzone, web, app ]
+      parent_l3leafs: [POD01-LEAF1A, POD01-LEAF1B]
+      nodes:
+        POD01-SUBLEAF1A:
+          id: 5
+          mgmt_ip: 192.168.1.9/24
+          l3leaf_interfaces: [Ethernet4, Ethernet4]
 
 #### Override for vEOS Lab Caveats ####
 
