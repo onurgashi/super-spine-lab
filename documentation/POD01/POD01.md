@@ -1,8 +1,8 @@
-# FABRIC_POD01
+# POD01
 
 ## Table of Contents
 
-- [FABRIC_POD01](#fabricpod01 )
+- [POD01](#pod01 )
   - [Fabric Switches and Management IP](#fabric-switches-and-management-ip)
   - [Fabric Topology](#fabric-topology)
   - [Fabric IP Allocation](#fabric-ip-allocation)
@@ -17,6 +17,13 @@
 
 | Node | Management IP | Platform | Provisioned in Cloudvision |
 | ---- | ------------- | -------- | -------------------------- |
+| POD01-SPINE1 | 192.168.1.3/24 | vEOS-LAB | Provisioned |
+| POD01-SPINE2 | 192.168.1.4/24 | vEOS-LAB | Provisioned |
+| POD01-LEAF1A | 192.168.1.5/24 | vEOS-LAB | Provisioned |
+| POD01-LEAF1B | 192.168.1.6/24 | vEOS-LAB | Provisioned |
+| POD01-LEAF2A | 192.168.1.7/24 | vEOS-LAB | Provisioned |
+| POD01-LEAF2B | 192.168.1.8/24 | vEOS-LAB | Provisioned |
+| POD01-SUBLEAF1A | 192.168.1.9/24 | vEOS-LAB | Provisioned |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from Cloudvision.
 
@@ -66,6 +73,12 @@
 
 | Node | Loopback0 |
 | ---- | --------- |
+| POD01-SPINE1 | 10.1.2.1/32 |
+| POD01-SPINE2 | 10.1.2.2/32 |
+| POD01-LEAF1A | 10.1.2.3/32 |
+| POD01-LEAF1B | 10.1.2.4/32 |
+| POD01-LEAF2A | 10.1.2.5/32 |
+| POD01-LEAF2B | 10.1.2.6/32 |
 
 ### VTEP Loopback VXLAN Tunnel Source Interfaces (Leafs Only)
 
@@ -77,3 +90,7 @@
 
 | Node | Loopback1 |
 | ---- | --------- |
+| POD01-LEAF1A | 10.1.5.3/32 |
+| POD01-LEAF1B | 10.1.5.3/32 |
+| POD01-LEAF2A | 10.1.5.5/32 |
+| POD01-LEAF2B | 10.1.5.5/32 |

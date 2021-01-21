@@ -1,0 +1,21 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 P2P_LINK_TO_POD01-SPINE1_Ethernet6
+Et2                            up             up                 P2P_LINK_TO_POD01-SPINE2_Ethernet6
+Et3                            up             up                 MLAG_PEER_POD01-LEAF2A_Ethernet3
+Et4                            up             up                 P2P_LINK_TO_ROUTE-SERVER1_Ethernet2
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Lo0                            up             up                 EVPN_Overlay_Peering
+Lo1                            up             up                 VTEP_VXLAN_Tunnel_Source
+Ma1                            up             up                 oob_management
+Po3                            up             up                 MLAG_PEER_POD01-LEAF2A_Po3
+Vl110                          up             up                 Tenant_A_OP_Zone_1
+Vl111                          admin down     down               Tenant_A_OP_Zone_2
+Vl112                          up             up                 Tenant_A_OP_Zone_3
+Vl1009                         up             up                 
+Vl4092                         up             up                 L2LEAF_INBAND_MGMT
+Vl4093                         up             up                 MLAG_PEER_L3_PEERING
+Vl4094                         up             up                 MLAG_PEER
+Vx1                            up             up

@@ -1,4 +1,4 @@
-# POD01-SPINE2
+# POD01-SUBLEAF1A
 
 # Table of Contents
 
@@ -88,13 +88,15 @@
 
 | Management Interface | description | VRF | IP Address | Gateway |
 | -------------------- | ----------- | --- | ---------- | ------- |
-| Management1 | oob_management | MGMT | 192.168.1.4/24 | 192.168.1.254 |
+| Management1 | oob_management | MGMT | 192.168.1.9/24 | 192.168.1.254 |
+| Vlan4092 | L2LEAF_INBAND_MGMT | default | 10.160.255.8/24 | 10.160.255.1 |
 
 #### IPv6
 
 | Management Interface | description | VRF | IPv6 Address | IPv6 Gateway |
 | -------------------- | ----------- | --- | ------------ | ------------ |
 | Management1 | oob_management | MGMT | -  | - |
+| Vlan4092 | L2LEAF_INBAND_MGMT | default | -  | - |
 
 ### Management Interfaces Device Configuration
 
@@ -104,7 +106,12 @@ interface Management1
    description oob_management
    no shutdown
    vrf MGMT
-   ip address 192.168.1.4/24
+   ip address 192.168.1.9/24
+!
+interface Vlan4092
+   description L2LEAF_INBAND_MGMT
+   no shutdown
+   ip address 10.160.255.8/24
 ```
 
 ## DNS Domain
@@ -287,7 +294,13 @@ MLAG not defined
 
 ## Spanning Tree Summary
 
-STP mode: **none**
+STP mode: **mstp**
+
+### MSTP Instance and Priority
+
+| Instance(s) | Priority |
+| -------- | -------- |
+| 0 | 16384 |
 
 ### Global Spanning-Tree Settings
 
@@ -296,7 +309,8 @@ STP mode: **none**
 
 ```eos
 !
-spanning-tree mode none
+spanning-tree mode mstp
+spanning-tree mst 0 priority 16384
 ```
 
 # Internal VLAN Allocation Policy
@@ -316,7 +330,31 @@ vlan internal order ascending range 1006 1199
 
 # VLANs
 
-No VLANs defined
+## VLANs Summary
+
+| VLAN ID | Name | Trunk Groups |
+| ------- | ---- | ------------ |
+| 110 | Tenant_A_OP_Zone_1 | none  |
+| 111 | Tenant_A_OP_Zone_2 | none  |
+| 112 | Tenant_A_OP_Zone_3 | none  |
+| 4092 | L2LEAF_INBAND_MGMT | none  |
+
+## VLANs Device Configuration
+
+```eos
+!
+vlan 110
+   name Tenant_A_OP_Zone_1
+!
+vlan 111
+   name Tenant_A_OP_Zone_2
+!
+vlan 112
+   name Tenant_A_OP_Zone_3
+!
+vlan 4092
+   name L2LEAF_INBAND_MGMT
+```
 
 # Interfaces
 
@@ -332,97 +370,52 @@ No Interface Defaults defined
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+| Ethernet1 | POD01-LEAF1A_Ethernet4 | *trunk | *110-112,4092 | *- | *- | 1 |
+| Ethernet2 | POD01-LEAF1B_Ethernet4 | *trunk | *110-112,4092 | *- | *- | 1 |
 
 *Inherited from Port-Channel Interface
-
-#### IPv4
-
-| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
-| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 |  P2P_LINK_TO_SUPER-SPINE1_Ethernet2  |  routed  | - |  10.0.1.3/31  |  default  |  1500  |  false  |  -  |  -  |
-| Ethernet2 |  P2P_LINK_TO_SUPER-SPINE2_Ethernet2  |  routed  | - |  10.0.1.67/31  |  default  |  1500  |  false  |  -  |  -  |
-| Ethernet3 |  P2P_LINK_TO_POD01-LEAF1A_Ethernet2  |  routed  | - |  10.0.3.2/31  |  default  |  1500  |  false  |  -  |  -  |
-| Ethernet4 |  P2P_LINK_TO_POD01-LEAF1B_Ethernet2  |  routed  | - |  10.0.3.6/31  |  default  |  1500  |  false  |  -  |  -  |
-| Ethernet5 |  P2P_LINK_TO_POD01-LEAF2A_Ethernet2  |  routed  | - |  10.0.3.10/31  |  default  |  1500  |  false  |  -  |  -  |
-| Ethernet6 |  P2P_LINK_TO_POD01-LEAF2B_Ethernet2  |  routed  | - |  10.0.3.14/31  |  default  |  1500  |  false  |  -  |  -  |
 
 ### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet1
-   description P2P_LINK_TO_SUPER-SPINE1_Ethernet2
+   description POD01-LEAF1A_Ethernet4
    no shutdown
-   no switchport
-   ip address 10.0.1.3/31
-   service-profile blah
+   channel-group 1 mode active
 !
 interface Ethernet2
-   description P2P_LINK_TO_SUPER-SPINE2_Ethernet2
+   description POD01-LEAF1B_Ethernet4
    no shutdown
-   no switchport
-   ip address 10.0.1.67/31
-   service-profile blah
-!
-interface Ethernet3
-   description P2P_LINK_TO_POD01-LEAF1A_Ethernet2
-   no shutdown
-   no switchport
-   ip address 10.0.3.2/31
-   service-profile blah
-!
-interface Ethernet4
-   description P2P_LINK_TO_POD01-LEAF1B_Ethernet2
-   no shutdown
-   no switchport
-   ip address 10.0.3.6/31
-   service-profile blah
-!
-interface Ethernet5
-   description P2P_LINK_TO_POD01-LEAF2A_Ethernet2
-   no shutdown
-   no switchport
-   ip address 10.0.3.10/31
-   service-profile blah
-!
-interface Ethernet6
-   description P2P_LINK_TO_POD01-LEAF2B_Ethernet2
-   no shutdown
-   no switchport
-   ip address 10.0.3.14/31
-   service-profile blah
+   channel-group 1 mode active
 ```
 
 ## Port-Channel Interfaces
 
-No port-channels defined
+### Port-Channel Interfaces Summary
 
-## Loopback Interfaces
+#### L2
 
-### Loopback Interfaces Summary
+| Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
+| --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
+| Port-Channel1 | POD01-LEAF1A_Po4 | switched | trunk | 110-112,4092 | - | - | - | - | - | - |
 
-#### IPv4
-
-| Interface | Description | VRF | IP Address |
-| --------- | ----------- | --- | ---------- |
-| Loopback0 | EVPN_Overlay_Peering | default | 10.1.2.2/32 |
-
-#### IPv6
-
-| Interface | Description | VRF | IPv6 Address |
-| --------- | ----------- | --- | ------------ |
-| Loopback0 | EVPN_Overlay_Peering | default | - |
-
-
-### Loopback Interfaces Device Configuration
+### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
-interface Loopback0
-   description EVPN_Overlay_Peering
+interface Port-Channel1
+   description POD01-LEAF1A_Po4
    no shutdown
-   ip address 10.1.2.2/32
+   switchport
+   switchport trunk allowed vlan 110-112,4092
+   switchport mode trunk
+   service-profile blah
 ```
+
+## Loopback Interfaces
+
+No loopback interfaces defined
 
 ## VLAN Interfaces
 
@@ -470,12 +463,14 @@ no ip routing vrf MGMT
 | VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
 | --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
 | MGMT  | 0.0.0.0/0 |  192.168.1.254  |  -  |  1  |  -  |  -  |  - |
+| default  | 0.0.0.0/0 |  10.160.255.1  |  -  |  1  |  -  |  -  |  - |
 
 ### Static Routes Device Configuration
 
 ```eos
 !
 ip route vrf MGMT 0.0.0.0/0 192.168.1.254
+ip route 0.0.0.0/0 10.160.255.1
 ```
 
 ## IPv6 Static Routes
@@ -496,104 +491,7 @@ Router ISIS not defined
 
 ## Router BGP
 
-### Router BGP Summary
-
-| BGP AS | Router ID |
-| ------ | --------- |
-| 65100|  10.1.2.2 |
-
-| BGP Tuning |
-| ---------- |
-| no bgp default ipv4-unicast |
-| distance bgp 20 200 200 |
-| graceful-restart restart-time 300 |
-| graceful-restart |
-| maximum-paths 4 ecmp 4 |
-
-### Router BGP Peer Groups
-
-#### EVPN-OVERLAY-PEERS
-
-| Settings | Value |
-| -------- | ----- |
-| Address Family | evpn |
-| Next-hop unchanged | True |
-| Source | Loopback0 |
-| Bfd | true |
-| Ebgp multihop | 15 |
-| Send community | true |
-| Maximum routes | 0 (no limit) |
-
-#### IPv4-UNDERLAY-PEERS
-
-| Settings | Value |
-| -------- | ----- |
-| Address Family | ipv4 |
-| Send community | true |
-| Maximum routes | 12000 |
-
-### BGP Neighbors
-
-| Neighbor | Remote AS |
-| -------- | ---------
-| 10.0.1.2 | 65001 |
-| 10.0.1.66 | 65001 |
-| 10.0.3.3 | 65101 |
-| 10.0.3.7 | 65101 |
-| 10.0.3.11 | 65102 |
-| 10.0.3.15 | 65102 |
-
-### Router BGP EVPN Address Family
-
-#### Router BGP EVPN MAC-VRFs
-
-#### Router BGP EVPN VRFs
-
-### Router BGP Device Configuration
-
-```eos
-!
-router bgp 65100
-   router-id 10.1.2.2
-   no bgp default ipv4-unicast
-   distance bgp 20 200 200
-   graceful-restart restart-time 300
-   graceful-restart
-   maximum-paths 4 ecmp 4
-   neighbor EVPN-OVERLAY-PEERS peer group
-   neighbor EVPN-OVERLAY-PEERS next-hop-unchanged
-   neighbor EVPN-OVERLAY-PEERS update-source Loopback0
-   neighbor EVPN-OVERLAY-PEERS bfd
-   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 15
-   neighbor EVPN-OVERLAY-PEERS password 7 q+VNViP5i4rVjW1cxFv2wA==
-   neighbor EVPN-OVERLAY-PEERS send-community
-   neighbor EVPN-OVERLAY-PEERS maximum-routes 0
-   neighbor IPv4-UNDERLAY-PEERS peer group
-   neighbor IPv4-UNDERLAY-PEERS password 7 AQQvKeimxJu+uGQ/yYvv9w==
-   neighbor IPv4-UNDERLAY-PEERS send-community
-   neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
-   neighbor 10.0.1.2 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.1.2 remote-as 65001
-   neighbor 10.0.1.66 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.1.66 remote-as 65001
-   neighbor 10.0.3.3 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.3.3 remote-as 65101
-   neighbor 10.0.3.7 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.3.7 remote-as 65101
-   neighbor 10.0.3.11 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.3.11 remote-as 65102
-   neighbor 10.0.3.15 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.3.15 remote-as 65102
-   redistribute connected route-map RM-CONN-2-BGP
-   !
-   address-family evpn
-      neighbor EVPN-OVERLAY-PEERS activate
-      no neighbor IPv4-UNDERLAY-PEERS activate
-   !
-   address-family ipv4
-      no neighbor EVPN-OVERLAY-PEERS activate
-      neighbor IPv4-UNDERLAY-PEERS activate
-```
+Router BGP not defined
 
 ## Router BFD
 
@@ -615,7 +513,16 @@ router bfd
 
 ## IP IGMP Snooping
 
-No IP IGMP configuration
+### IP IGMP Snooping Summary
+
+IGMP snooping is globally enabled.
+
+
+### IP IGMP Snooping Device Configuration
+
+```eos
+```
+
 
 ## Router Multicast
 
@@ -637,21 +544,7 @@ No peer filters defined
 
 ## Prefix-lists
 
-### Prefix-lists Summary
-
-#### PL-LOOPBACKS-EVPN-OVERLAY
-
-| Sequence | Action |
-| -------- | ------ |
-| 10 | permit 10.1.2.0/24 le 32 |
-
-### Prefix-lists Device Configuration
-
-```eos
-!
-ip prefix-list PL-LOOPBACKS-EVPN-OVERLAY
-   seq 10 permit 10.1.2.0/24 le 32
-```
+Prefix-lists not defined
 
 ## IPv6 Prefix-lists
 
@@ -659,21 +552,7 @@ IPv6 prefix-lists not defined
 
 ## Route-maps
 
-### Route-maps Summary
-
-#### RM-CONN-2-BGP
-
-| Sequence | Type | Match and/or Set |
-| -------- | ---- | ---------------- |
-| 10 | permit | match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY |
-
-### Route-maps Device Configuration
-
-```eos
-!
-route-map RM-CONN-2-BGP permit 10
-   match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY
-```
+No route-maps defined
 
 ## IP Extended Communities
 

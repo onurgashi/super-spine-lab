@@ -88,7 +88,7 @@
 
 | Management Interface | description | VRF | IP Address | Gateway |
 | -------------------- | ----------- | --- | ---------- | ------- |
-| Management1 | oob_management | MGMT | 192.168.0.8/24 | 192.168.1.254 |
+| Management1 | oob_management | MGMT | 192.168.1.8/24 | 192.168.1.254 |
 
 #### IPv6
 
@@ -104,7 +104,7 @@ interface Management1
    description oob_management
    no shutdown
    vrf MGMT
-   ip address 192.168.0.8/24
+   ip address 192.168.1.8/24
 ```
 
 ## DNS Domain

@@ -520,7 +520,7 @@ Router ISIS not defined
 | Next-hop unchanged | True |
 | Source | Loopback0 |
 | Bfd | true |
-| Ebgp multihop | 3 |
+| Ebgp multihop | 15 |
 | Send community | true |
 | Maximum routes | 0 (no limit) |
 
@@ -542,10 +542,6 @@ Router ISIS not defined
 | 10.0.3.5 | 65101 |
 | 10.0.3.9 | 65102 |
 | 10.0.3.13 | 65102 |
-| 10.1.2.3 | 65101 |
-| 10.1.2.4 | 65101 |
-| 10.1.2.5 | 65102 |
-| 10.1.2.6 | 65102 |
 
 ### Router BGP EVPN Address Family
 
@@ -568,7 +564,7 @@ router bgp 65100
    neighbor EVPN-OVERLAY-PEERS next-hop-unchanged
    neighbor EVPN-OVERLAY-PEERS update-source Loopback0
    neighbor EVPN-OVERLAY-PEERS bfd
-   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 3
+   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 15
    neighbor EVPN-OVERLAY-PEERS password 7 q+VNViP5i4rVjW1cxFv2wA==
    neighbor EVPN-OVERLAY-PEERS send-community
    neighbor EVPN-OVERLAY-PEERS maximum-routes 0
@@ -588,14 +584,6 @@ router bgp 65100
    neighbor 10.0.3.9 remote-as 65102
    neighbor 10.0.3.13 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.3.13 remote-as 65102
-   neighbor 10.1.2.3 peer group EVPN-OVERLAY-PEERS
-   neighbor 10.1.2.3 remote-as 65101
-   neighbor 10.1.2.4 peer group EVPN-OVERLAY-PEERS
-   neighbor 10.1.2.4 remote-as 65101
-   neighbor 10.1.2.5 peer group EVPN-OVERLAY-PEERS
-   neighbor 10.1.2.5 remote-as 65102
-   neighbor 10.1.2.6 peer group EVPN-OVERLAY-PEERS
-   neighbor 10.1.2.6 remote-as 65102
    redistribute connected route-map RM-CONN-2-BGP
    !
    address-family evpn

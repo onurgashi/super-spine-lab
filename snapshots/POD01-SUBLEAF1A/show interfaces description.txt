@@ -1,0 +1,12 @@
+Interface                      Status         Protocol           Description
+Et1                            up             up                 POD01-LEAF1A_Ethernet4
+Et2                            up             up                 POD01-LEAF1B_Ethernet4
+Et3                            up             up                 
+Et4                            up             up                 
+Et5                            up             up                 
+Et6                            up             up                 
+Et7                            up             up                 
+Et8                            up             up                 
+Ma1                            up             up                 oob_management
+Po1                            up             up                 POD01-LEAF1A_Po4
+Vl4092                         up             up                 L2LEAF_INBAND_MGMT

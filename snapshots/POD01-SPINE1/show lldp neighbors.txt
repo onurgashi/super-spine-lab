@@ -1,0 +1,23 @@
+Last table change time   : 4:43:00 ago
+Number of table inserts  : 30
+Number of table deletes  : 15
+Number of table drops    : 0
+Number of table age-outs : 6
+
+Port          Neighbor Device ID       Neighbor Port ID    TTL 
+---------- ------------------------ ---------------------- --- 
+Et1           SUPER-SPINE1             Ethernet1           120 
+Et2           SUPER-SPINE2             Ethernet1           120 
+Et3           POD01-LEAF1A             Ethernet1           120 
+Et4           POD01-LEAF1B             Ethernet1           120 
+Et5           POD01-LEAF2A             Ethernet1           120 
+Et6           POD01-LEAF2B             Ethernet1           120 
+Ma1           POD01-LEAF2A             Management1         120 
+Ma1           POD01-SUBLEAF1A          Management1         120 
+Ma1           POD01-SPINE2             Management1         120 
+Ma1           POD01-LEAF2B             Management1         120 
+Ma1           POD01-LEAF1A             Management1         120 
+Ma1           POD01-LEAF1B             Management1         120 
+Ma1           ROUTE-SERVER1            Management1         120 
+Ma1           SUPER-SPINE1             Management1         120 
+Ma1           SUPER-SPINE2             Management1         120

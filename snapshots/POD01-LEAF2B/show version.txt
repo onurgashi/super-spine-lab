@@ -1,0 +1,14 @@
+vEOS
+Hardware version: 
+Serial number: 
+Hardware MAC address: 50ba.0019.e550
+System MAC address: 50ba.0019.e550
+
+Software image version: 4.25.0F
+Architecture: i686
+Internal build version: 4.25.0F-19426669.4250F
+Internal build ID: 3e3fd8c9-cd7e-43fc-b5c7-4bd41eb55161
+
+Uptime: 0 weeks, 0 days, 9 hours and 23 minutes
+Total memory: 4008608 kB
+Free memory: 3071724 kB

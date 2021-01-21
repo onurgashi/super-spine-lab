@@ -88,7 +88,7 @@
 
 | Management Interface | description | VRF | IP Address | Gateway |
 | -------------------- | ----------- | --- | ---------- | ------- |
-| Management1 | oob_management | MGMT | 192.168.0.6/24 | 192.168.1.254 |
+| Management1 | oob_management | MGMT | 192.168.1.6/24 | 192.168.1.254 |
 
 #### IPv6
 
@@ -104,7 +104,7 @@ interface Management1
    description oob_management
    no shutdown
    vrf MGMT
-   ip address 192.168.0.6/24
+   ip address 192.168.1.6/24
 ```
 
 ## DNS Domain
@@ -395,6 +395,7 @@ No Interface Defaults defined
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet3 | MLAG_PEER_POD01-LEAF1A_Ethernet3 | *trunk | *2-4094 | *- | *['LEAF_PEER_L3', 'MLAG'] | 3 |
+| Ethernet4 | POD01-SUBLEAF1A_Ethernet2 | *trunk | *110-112,4092 | *- | *- | 4 |
 
 *Inherited from Port-Channel Interface
 
@@ -427,6 +428,11 @@ interface Ethernet3
    description MLAG_PEER_POD01-LEAF1A_Ethernet3
    no shutdown
    channel-group 3 mode active
+!
+interface Ethernet4
+   description POD01-SUBLEAF1A_Ethernet2
+   no shutdown
+   channel-group 4 mode active
 ```
 
 ## Port-Channel Interfaces
@@ -438,6 +444,7 @@ interface Ethernet3
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel3 | MLAG_PEER_POD01-LEAF1A_Po3 | switched | trunk | 2-4094 | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
+| Port-Channel4 | POD01_SUBLEAF1_Po1 | switched | trunk | 110-112,4092 | - | - | - | - | 4 | - |
 
 ### Port-Channel Interfaces Device Configuration
 
@@ -451,6 +458,15 @@ interface Port-Channel3
    switchport mode trunk
    switchport trunk group LEAF_PEER_L3
    switchport trunk group MLAG
+   service-profile blah
+!
+interface Port-Channel4
+   description POD01_SUBLEAF1_Po1
+   no shutdown
+   switchport
+   switchport trunk allowed vlan 110-112,4092
+   switchport mode trunk
+   mlag 4
    service-profile blah
 ```
 
