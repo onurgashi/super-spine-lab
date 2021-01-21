@@ -1,0 +1,66 @@
+---
+
+all:
+  children:
+    FABRIC:
+      children:
+        SUPER_SPINES:
+          hosts:
+            SUPER-SPINE1:
+              ansible-port: 8001
+            SUPER-SPINE2:
+              ansible-port: 8002
+        ROUTE_SERVERS:
+          hosts:
+            ROUTE-SERVER1:
+              ansible-port: 8010
+        POD01:
+          children:
+            POD01_SPINES:
+              hosts:
+                POD01-SPINE1:
+                  ansible-port: 8003
+                POD01-SPINE2:
+                  ansible-port: 8004
+            POD01_L3LEAFS:
+              children:
+                POD01_LEAF1:
+                  hosts:
+                    POD01-LEAF1A:
+                      ansible-port: 8005
+                    POD01-LEAF1B:
+                      ansible-port: 8006
+                POD01_LEAF2:
+                  hosts:
+                    POD01-LEAF2A:
+                      ansible-port: 8007
+                    POD01-LEAF2B:
+                      ansible-port: 8008
+            POD01_SUBLEAFS:
+              children:
+                POD01_SUBLEAF1:
+                  hosts:
+                    POD01-SUBLEAF1A:
+                      ansible-port: 8009
+
+    TENANTS:
+      children:
+        POD01_L3LEAFS:
+        POD01_SUBLEAFS:
+
+    SERVERS:
+      children:
+        POD01_L3LEAFS:
+        POD01_SUBLEAFS:
+
+      vars:
+        ansible_host: 10.83.28.157
+        ansible_connection: httpapi
+        ansible_network_os: eos
+        ansible_user: admin
+        ansible_ssh_pass: arista
+        ansible_become: true
+        ansible_become_method: enable
+        ansible_httpapi_use_ssl: true
+        ansible_httpapi_validate_certs: false
+

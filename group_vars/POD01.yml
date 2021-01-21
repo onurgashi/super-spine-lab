@@ -1,0 +1,144 @@
+---
+# L3LS Fabric Values - update these values with caution,
+# SOME CHANGES COULD BE DISRUPTIVE.
+
+fabric_name: FABRIC_POD01
+pod_number: 1
+
+# Point to Point Network Summary range, assigned as /31 for each
+# uplink interfaces
+# Assign range larger then total
+# [ max_spines_in_a_POD * max_super_spines * max_spine_to_super_spine_links * 2 ]
+super_spine_underlay_p2p_network_summary: 10.0.1.0/24
+
+# Point to Point Network Summary range, assigned as /31 for each
+# uplink interfaces
+# Assign range larger then total [spines * total potential leafs * 2]
+underlay_p2p_network_summary: 10.0.3.0/24
+
+# IP address range for evpn loopback for all switches in fabric,
+# assigned as /32s
+# Assign range larger then total spines + total leafs switches
+overlay_loopback_network_summary: 10.1.2.0/24
+
+# VTEP loopback summary
+vtep_loopback_network_summary: 10.1.5.0/24
+
+
+# mlag pair IP assignment - assign blocks - Assign range larger then
+# total leafs switches
+mlag_ips:
+  leaf_peer_l3: 10.255.0.0/24
+  mlag_peer: 10.255.1.0/24
+
+l2leaf_inband_management_subnet: 10.160.255.0/24
+
+# Enable vlan aware bundles
+vxlan_vlan_aware_bundles: false
+
+# Spine Switches
+spine:
+  platform: vEOS-LAB
+  bgp_as: 65100
+  uplinks_to_super_spine_interfaces: [Ethernet1, Ethernet2]
+  # defines the range of acceptable remote ASNs from leaf switches
+  #leaf_as_range: 65101-65132
+  nodes:
+    POD01-SPINE1:
+      id: 1
+      mgmt_ip: 192.168.1.3/24
+      # super-spine interfaces to spines
+      # taking `max_spine_to_super_spine_links` into account
+      # for example: super-spine1, super-spine2, super-spine3, ...
+      # or super-spine1, super-spine1, super-spine2, super-spine2, etc.
+      super_spine_interfaces: ['Ethernet1', 'Ethernet1']
+    POD01-SPINE2:
+      id: 2
+      mgmt_ip: 192.168.1.4/24
+      # super-spine interfaces to spines
+      # taking `max_spine_to_super_spine_links` into account
+      # for example: super-spine1, super-spine2, super-spine3, ...
+      # or super-spine1, super-spine1, super-spine2, super-spine2, etc.
+      super_spine_interfaces: ['Ethernet2', 'Ethernet2']
+
+# Leaf switch groups
+# A maximum of two nodes can form a leaf group
+# When two nodes are in a leaf group this will automatically form mlag pair
+
+l3leaf:
+  defaults:
+    # virtual router mac for VNIs assigned to Leaf switches
+    # format: xx:xx:xx:xx:xx:xx
+    virtual_router_mac_address: 00:1c:73:00:dc:01
+    platform: vEOS-LAB
+    #bgp_as: 65100
+    spines: [POD01-SPINE1, POD01-SPINE2]
+    uplink_to_spine_interfaces: [Ethernet1, Ethernet2]
+    mlag_interfaces: [ Ethernet3 ]
+    spanning_tree_priority: 4096
+    spanning_tree_mode: mstp
+  node_groups:
+    POD01_LEAF1:
+      bgp_as: 65101
+      nodes:
+        POD01-LEAF1A:
+          id: 1
+          mgmt_ip: 192.168.1.5/24
+          spine_interfaces: [Ethernet3, Ethernet3]
+        POD01-LEAF1B:
+          id: 2
+          mgmt_ip: 192.168.0.6/24
+          spine_interfaces: [Ethernet4, Ethernet4]
+    POD01_LEAF2:
+      bgp_as: 65102
+      nodes:
+        POD01-LEAF2A:
+          id: 3
+          mgmt_ip: 192.168.0.7/24
+          spine_interfaces: [Ethernet5, Ethernet5]
+        POD01-LEAF2B:
+          id: 4
+          mgmt_ip: 192.168.0.8/24
+          spine_interfaces: [Ethernet6, Ethernet6]
+
+l2leaf:
+  defaults:
+    platform: vEOS-LAB
+    uplink_interfaces: [Ethernet1, Ethernet2]
+    mlag_interfaces: [ Ethernet3, Ethernet4 ]
+    spanning_tree_mode: mstp
+    spanning_tree_priority: 16384
+    mlag: false
+    node_groups:
+      POD01_SUBLEAF1:
+        filter:
+          tenants: [ Tenant_A ]
+          tags: [ opzone, web, app ]
+        parent_l3leafs: [POD01-LEAF1A, POD01-LEAF1B]
+        nodes:
+          POD01-SUBLEAF1A:
+            id: 5
+            mgmt_ip: 192.168.1.9/24
+            l3leaf_interfaces: [Ethernet4, Ethernet4]
+
+#### Override for vEOS Lab Caveats ####
+
+# Disable update wait-for-convergence and update wait-for-install,
+# which is not supported in vEOS-LAB.
+# Refer to design guide
+
+spine_bgp_defaults:
+  #  - update wait-for-convergence
+  #  - update wait-install
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - graceful-restart restart-time 300
+  - graceful-restart
+
+leaf_bgp_defaults:
+  #  - update wait-install
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - graceful-restart restart-time 300
+  - graceful-restart
+

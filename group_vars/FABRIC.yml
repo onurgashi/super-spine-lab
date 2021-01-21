@@ -1,0 +1,125 @@
+dc_name : FABRIC   # data center name
+
+max_super_spines: 4  # maximum number of super-spines, changing this parameter affects address allocation
+
+super_spine:
+  platform: vEOS-LAB  # super-spine platform
+  bgp_as: 65001
+  spine_interfaces:
+    - [ Ethernet1, Ethernet2 ]
+    - [ Ethernet1, Ethernet2 ]
+  nodes:
+    SUPER-SPINE1:  # super-spine name
+      id: 1
+      mgmt_ip: 192.168.1.1/24
+    SUPER-SPINE2:  # super-spine name
+      id: 2
+      mgmt_ip: 192.168.1.2/24
+
+# IP address range for loopbacks for all super-spines in the DC,
+# assigned as /32s
+# Assign range larger then total super-spines
+super_spine_loopback_network_summary: 10.1.1.0/24
+
+
+# additional lines for super-spine BGP config
+super_spine_bgp_defaults:
+  #  - update wait-for-convergence
+  #  - update wait-install
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - graceful-restart restart-time 300
+  - graceful-restart
+
+# bgp peer groups passwords
+bgp_peer_groups:
+  IPv4_UNDERLAY_PEERS:
+    password: "AQQvKeimxJu+uGQ/yYvv9w=="
+  EVPN_OVERLAY_PEERS:
+    password: "q+VNViP5i4rVjW1cxFv2wA=="
+  MLAG_IPv4_UNDERLAY_PEER:
+    password: "vnEaG8gMeQf3d3cN6PktXQ=="
+
+
+overlay_controller:
+  platform: vEOS-LAB
+  defaults:
+    uplink_to_remote_switches: [Ethernet1, Ethernet2]
+    bgp_as: 65100
+  nodes:
+    ROUTE-SERVER1:
+      id: 1
+      mgmt_ip: 192.168.1.10/24
+      remote_switches: [POD01-LEAF2A, POD01-LEAF2B]
+      remote_switches_interfaces: [Ethernet4, Ethernet4]
+
+overlay_controller_p2p_network_summary: 10.0.2.0/24
+overlay_controller_loopback_network_summary: 10.1.3.0/24
+
+max_overlay_controller_to_switch_links: 1
+
+overlay_controller_bgp_defaults:
+  #  - update wait-for-convergence
+  #  - update wait-install
+  - no bgp default ipv4-unicast
+  - distance bgp 20 200 200
+  - graceful-restart restart-time 300
+  - graceful-restart
+
+
+# Update p2p mtu 9000 -> 1500
+p2p_uplinks_mtu: 1500
+
+p2p_uplinks_qos_profile: blah
+
+# Adjust default bfd values
+bfd_multihop:
+  interval: 1200
+  min_rx: 1200
+  multiplier: 3
+
+bgp_maximum_paths: 4
+bgp_ecmp: 4
+
+# DC general config
+
+# local users
+local_users:
+  # Username with password configured
+  admin:
+    privilege: 15
+    role: network-admin
+    no_password: true
+    sha512_password: $6$eJ5TvI8oru5i9e8G$R1X/SbtGTk9xoEHEBQASc7SC2nHYmi.crVgp2pXuCXwxsXEA81e4E0cXgQ6kX08fIeQzauqhv2kS.RGJFCon5/
+
+
+# OOB Management network default gateway.
+mgmt_gateway: 192.168.1.254
+mgmt_destination_networks:
+  - 0.0.0.0/0
+
+# dns servers.
+name_servers:
+  - 1.1.1.1
+  - 8.8.8.8
+
+# NTP Servers IP or DNS name, first NTP server will be prefered, and sourced from Managment VRF
+ntp_servers:
+  - uk.pool.ntp.org
+  - fr.pool.ntp.org
+
+# rd and rt types
+# evpn_rd_type:
+#   admin_subfield: < "overlay_loopback" | "vtep_loopback" | "leaf_asn" | "spine_asn" | < IPv4 Address > | <0-65535> | <0-4294967295> | default -> "overlay_loopback" >
+# evpn_rt_type:
+#   admin_subfield: < "leaf_asn" | "spine_asn" | "vni" | <0-65535> | <0-4294967295> | default -> "vni" >
+evpn_rd_type:
+  admin_subfield: leaf_asn
+evpn_rt_type:
+  admin_subfield: 65000
+
+
+#Testing of custom_structured_configuration
+custom_structured_configuration_name_server:
+  nodes:
+    - 1.2.3.4

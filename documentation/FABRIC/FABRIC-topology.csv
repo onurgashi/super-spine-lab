@@ -1,0 +1,11 @@
+Node Type,Node,Node Interface,Peer Type,Peer,Peer Interface
+spine,POD01-SPINE1,Ethernet1,super-spine,SUPER-SPINE1,Ethernet1
+spine,POD01-SPINE1,Ethernet2,super-spine,SUPER-SPINE2,Ethernet1
+spine,POD01-SPINE2,Ethernet1,super-spine,SUPER-SPINE1,Ethernet2
+spine,POD01-SPINE2,Ethernet2,super-spine,SUPER-SPINE2,Ethernet2
+overlay-controller,ROUTE-SERVER1,Ethernet1,l3leaf,POD01-LEAF2A,Ethernet4
+overlay-controller,ROUTE-SERVER1,Ethernet2,l3leaf,POD01-LEAF2B,Ethernet4
+super-spine,SUPER-SPINE1,Ethernet1,spine,POD01-SPINE1,Ethernet1
+super-spine,SUPER-SPINE1,Ethernet2,spine,POD01-SPINE2,Ethernet1
+super-spine,SUPER-SPINE2,Ethernet1,spine,POD01-SPINE1,Ethernet2
+super-spine,SUPER-SPINE2,Ethernet2,spine,POD01-SPINE2,Ethernet2

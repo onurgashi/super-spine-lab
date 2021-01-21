@@ -1,0 +1,7 @@
+type, Super-Spine Node,Super-Spine Interface,Super-Spine IP Address,Peer Node,Peer Interface,Peer IP Address
+overlay-controller,ROUTE-SERVER1,Ethernet1,10.0.2.1/31,POD01-LEAF2A,Ethernet4,10.0.2.0/31
+overlay-controller,ROUTE-SERVER1,Ethernet2,10.0.2.3/31,POD01-LEAF2B,Ethernet4,10.0.2.2/31
+super-spine,SUPER-SPINE1,Ethernet1,10.0.1.0/31,POD01-SPINE1,Ethernet1,10.0.1.1/31
+super-spine,SUPER-SPINE1,Ethernet2,10.0.1.2/31,POD01-SPINE2,Ethernet1,10.0.1.3/31
+super-spine,SUPER-SPINE2,Ethernet1,10.0.1.64/31,POD01-SPINE1,Ethernet2,10.0.1.65/31
+super-spine,SUPER-SPINE2,Ethernet2,10.0.1.66/31,POD01-SPINE2,Ethernet2,10.0.1.67/31
