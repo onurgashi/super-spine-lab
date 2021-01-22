@@ -117,7 +117,7 @@ l2leaf:
       parent_l3leafs: [POD01-LEAF1A, POD01-LEAF1B]
       nodes:
         POD01-SUBLEAF1A:
-          id: 5
+          id: 1
           mgmt_ip: 192.168.1.9/24
           l3leaf_interfaces: [Ethernet4, Ethernet4]
 

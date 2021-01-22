@@ -1,6 +1,6 @@
 l2leaf_node_group: POD01_SUBLEAF1
 switch_platform: vEOS-LAB
-leaf_id: 5
+leaf_id: 1
 switch_mgmt_ip: 192.168.1.9/24
 leaf_filter_tenants:
 - Tenant_A
@@ -112,7 +112,7 @@ management_interfaces:
     description: L2LEAF_INBAND_MGMT
     shutdown: false
     mtu: 1500
-    ip_address: 10.160.255.8/24
+    ip_address: 10.160.255.4/24
     gateway: 10.160.255.1
 vlan_interfaces: null
 tcam_profile: null
@@ -132,3 +132,15 @@ management_api_http:
   enable_https: true
   enable_vrfs:
     MGMT: null
+tacacs_servers:
+  hosts:
+  - host: 1.2.3.4
+    key: 1234
+    vrf: default
+ip_tacacs_source_interfaces:
+- name: Loopback0
+  vrf: default
+management_ssh:
+  access_groups:
+  - name: ACL-SSH
+    vrf: default

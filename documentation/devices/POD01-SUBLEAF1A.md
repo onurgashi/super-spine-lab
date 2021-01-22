@@ -89,7 +89,7 @@
 | Management Interface | description | VRF | IP Address | Gateway |
 | -------------------- | ----------- | --- | ---------- | ------- |
 | Management1 | oob_management | MGMT | 192.168.1.9/24 | 192.168.1.254 |
-| Vlan4092 | L2LEAF_INBAND_MGMT | default | 10.160.255.8/24 | 10.160.255.1 |
+| Vlan4092 | L2LEAF_INBAND_MGMT | default | 10.160.255.4/24 | 10.160.255.1 |
 
 #### IPv6
 
@@ -111,7 +111,7 @@ interface Management1
 interface Vlan4092
    description L2LEAF_INBAND_MGMT
    no shutdown
-   ip address 10.160.255.8/24
+   ip address 10.160.255.4/24
 ```
 
 ## DNS Domain
@@ -168,7 +168,11 @@ PTP is not defined.
 
 ## Management SSH
 
-Management SSH not defined
+```eos
+!
+management ssh
+   ip access-group ACL-SSH vrf default in
+```
 
 ## Management API GNMI
 
@@ -222,11 +226,33 @@ Enable password not defined
 
 ## TACACS Servers
 
-TACACS servers not defined
+### TACACS Servers
+
+| VRF | TACACS Servers |
+| --- | ---------------|
+|  default | 1.2.3.4 |
+
+### TACACS Servers Device Configuration
+
+```eos
+!
+tacacs-server host 1.2.3.4 vrf default key 7 1234
+```
 
 ## IP TACACS Source Interfaces
 
-IP TACACS source interfaces not defined
+### IP TACACS Source Interfaces
+
+| VRF | Source Interface Name |
+| --- | --------------- |
+ default |Loopback0 |
+
+### IP TACACS Source Interfaces Device Configuration
+
+```eos
+!
+ip tacacs vrf default source-interface Loopback0
+```
 
 ## RADIUS Servers
 

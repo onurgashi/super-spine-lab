@@ -161,7 +161,11 @@ PTP is not defined.
 
 ## Management SSH
 
-Management SSH not defined
+```eos
+!
+management ssh
+   ip access-group ACL-SSH vrf default in
+```
 
 ## Management API GNMI
 
@@ -215,11 +219,33 @@ Enable password not defined
 
 ## TACACS Servers
 
-TACACS servers not defined
+### TACACS Servers
+
+| VRF | TACACS Servers |
+| --- | ---------------|
+|  default | 1.2.3.4 |
+
+### TACACS Servers Device Configuration
+
+```eos
+!
+tacacs-server host 1.2.3.4 vrf default key 7 1234
+```
 
 ## IP TACACS Source Interfaces
 
-IP TACACS source interfaces not defined
+### IP TACACS Source Interfaces
+
+| VRF | Source Interface Name |
+| --- | --------------- |
+ default |Loopback0 |
+
+### IP TACACS Source Interfaces Device Configuration
+
+```eos
+!
+ip tacacs vrf default source-interface Loopback0
+```
 
 ## RADIUS Servers
 

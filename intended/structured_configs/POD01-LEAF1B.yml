@@ -395,3 +395,15 @@ management_api_http:
   enable_https: true
   enable_vrfs:
     MGMT: null
+tacacs_servers:
+  hosts:
+  - host: 1.2.3.4
+    key: 1234
+    vrf: default
+ip_tacacs_source_interfaces:
+- name: Loopback0
+  vrf: default
+management_ssh:
+  access_groups:
+  - name: ACL-SSH
+    vrf: default
