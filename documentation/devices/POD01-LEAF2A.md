@@ -727,10 +727,10 @@ Router ISIS not defined
 
 | Neighbor | Remote AS |
 | -------- | ---------
-| 10.0.2.1 | 65100 |
+| 10.0.2.1 | 65000 |
 | 10.0.3.8 | Inherited from peer group IPv4-UNDERLAY-PEERS |
 | 10.0.3.10 | Inherited from peer group IPv4-UNDERLAY-PEERS |
-| 10.1.3.1 | 65100 |
+| 10.1.3.1 | 65000 |
 | 10.255.0.5 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER |
 
 ### Router BGP EVPN Address Family
@@ -783,12 +783,12 @@ router bgp 65102
    neighbor MLAG-IPv4-UNDERLAY-PEER maximum-routes 12000
    neighbor MLAG-IPv4-UNDERLAY-PEER route-map RM-MLAG-PEER-IN in
    neighbor 10.0.2.1 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.2.1 remote-as 65100
+   neighbor 10.0.2.1 remote-as 65000
    neighbor 10.0.2.1 description ROUTE-SERVER1
    neighbor 10.0.3.8 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.3.10 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.1.3.1 peer group EVPN-OVERLAY-PEERS
-   neighbor 10.1.3.1 remote-as 65100
+   neighbor 10.1.3.1 remote-as 65000
    neighbor 10.1.3.1 description ROUTE-SERVER1
    neighbor 10.255.0.5 peer group MLAG-IPv4-UNDERLAY-PEER
    redistribute attached-host

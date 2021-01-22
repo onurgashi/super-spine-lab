@@ -1,6 +1,6 @@
 dc_name : FABRIC   # data center name
 
-fabric_name: POD01
+fabric_name: FABRIC
 
 max_super_spines: 4  # maximum number of super-spines, changing this parameter affects address allocation
 
@@ -47,7 +47,7 @@ overlay_controller:
   platform: vEOS-LAB
   defaults:
     uplink_to_remote_switches: [Ethernet1, Ethernet2]
-    bgp_as: 65100
+    bgp_as: 65000
   nodes:
     ROUTE-SERVER1:
       id: 1

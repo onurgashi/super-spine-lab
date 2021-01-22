@@ -14,20 +14,20 @@
 
 | Total Tests | Total Tests Passed | Total Tests Failed |
 | ----------- | ------------------ | ------------------ |
-| 311 | 280 | 31 |
+| 303 | 288 | 15 |
 
 ### Summary Totals Devices Under Tests
 
 | DUT | Total Tests | Tests Passed | Tests Failed | Categories Failed |
 | --- | ----------- | ------------ | ------------ | ----------------- |
-| POD01-LEAF1A |  41 | 37 | 4 | NTP, Interface State, BGP |
-| POD01-LEAF1B |  39 | 36 | 3 | NTP, Interface State, BGP |
+| POD01-LEAF1A |  41 | 38 | 3 | NTP, Interface State |
+| POD01-LEAF1B |  39 | 37 | 2 | NTP, Interface State |
 | POD01-LEAF2A |  40 | 38 | 2 | NTP, Interface State |
 | POD01-LEAF2B |  40 | 38 | 2 | NTP, Interface State |
-| POD01-SPINE1 |  40 | 35 | 5 | NTP, BGP |
-| POD01-SPINE2 |  40 | 35 | 5 | NTP, BGP |
+| POD01-SPINE1 |  36 | 35 | 1 | NTP |
+| POD01-SPINE2 |  36 | 35 | 1 | NTP |
 | POD01-SUBLEAF1A |  7 | 6 | 1 | NTP |
-| ROUTE-SERVER1 |  24 | 17 | 7 | NTP, BGP, Routing Table, Loopback0 Reachability |
+| ROUTE-SERVER1 |  24 | 23 | 1 | NTP |
 | SUPER-SPINE1 |  20 | 19 | 1 | NTP |
 | SUPER-SPINE2 |  20 | 19 | 1 | NTP |
 
@@ -40,10 +40,10 @@
 | LLDP Topology |  36 | 36 | 0 |
 | MLAG |  4 | 4 | 0 |
 | IP Reachability |  28 | 28 | 0 |
-| BGP |  57 | 45 | 12 |
+| BGP |  49 | 49 | 0 |
 | Reload Cause |  10 | 10 | 0 |
-| Routing Table |  44 | 42 | 2 |
-| Loopback0 Reachability |  36 | 34 | 2 |
+| Routing Table |  44 | 44 | 0 |
+| Loopback0 Reachability |  36 | 36 | 0 |
 
 ## Failed Test Results Summary
 
@@ -64,22 +64,6 @@
 | 66 | POD01-LEAF1B | Interface State | Vlan Interface Status & Line Protocol == "up" | Vlan111 - Tenant_A_OP_Zone_2 | FAIL | interface status: adminDown - line protocol status: down |
 | 72 | POD01-LEAF2A | Interface State | Vlan Interface Status & Line Protocol == "up" | Vlan111 - Tenant_A_OP_Zone_2 | FAIL | interface status: adminDown - line protocol status: down |
 | 78 | POD01-LEAF2B | Interface State | Vlan Interface Status & Line Protocol == "up" | Vlan111 - Tenant_A_OP_Zone_2 | FAIL | interface status: adminDown - line protocol status: down |
-| 206 | POD01-LEAF1A | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | FAIL | Session state "Active" |
-| 207 | POD01-LEAF1B | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | FAIL | Session state "Active" |
-| 210 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | FAIL | Session state "Connect" |
-| 211 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | FAIL | Session state "Connect" |
-| 212 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.5 | FAIL | Session state "Connect" |
-| 213 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.6 | FAIL | Session state "Connect" |
-| 214 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | FAIL | Session state "Connect" |
-| 215 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | FAIL | Session state "Connect" |
-| 216 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.5 | FAIL | Session state "Connect" |
-| 217 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.6 | FAIL | Session state "Connect" |
-| 218 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | FAIL | Session state "Active" |
-| 219 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | FAIL | Session state "Active" |
-| 264 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.3 | FAIL | Lo0 10.1.2.3 is not in the routing table |
-| 265 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.4 | FAIL | Lo0 10.1.2.4 is not in the routing table |
-| 300 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.3 | FAIL | 100% packet loss |
-| 301 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.4 | FAIL | 100% packet loss |
 
 ## All Test Results
 
@@ -290,109 +274,101 @@
 | 203 | SUPER-SPINE1 | BGP | ip bgp peer state established (ipv4) | bgp_neighbor: 10.0.1.3 | PASS |  |
 | 204 | SUPER-SPINE2 | BGP | ip bgp peer state established (ipv4) | bgp_neighbor: 10.0.1.65 | PASS |  |
 | 205 | SUPER-SPINE2 | BGP | ip bgp peer state established (ipv4) | bgp_neighbor: 10.0.1.67 | PASS |  |
-| 206 | POD01-LEAF1A | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | FAIL | Session state "Active" |
-| 207 | POD01-LEAF1B | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | FAIL | Session state "Active" |
+| 206 | POD01-LEAF1A | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | PASS |  |
+| 207 | POD01-LEAF1B | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | PASS |  |
 | 208 | POD01-LEAF2A | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | PASS |  |
 | 209 | POD01-LEAF2B | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.3.1 | PASS |  |
-| 210 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | FAIL | Session state "Connect" |
-| 211 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | FAIL | Session state "Connect" |
-| 212 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.5 | FAIL | Session state "Connect" |
-| 213 | POD01-SPINE1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.6 | FAIL | Session state "Connect" |
-| 214 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | FAIL | Session state "Connect" |
-| 215 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | FAIL | Session state "Connect" |
-| 216 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.5 | FAIL | Session state "Connect" |
-| 217 | POD01-SPINE2 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.6 | FAIL | Session state "Connect" |
-| 218 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | FAIL | Session state "Active" |
-| 219 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | FAIL | Session state "Active" |
-| 220 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.5 | PASS |  |
-| 221 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.6 | PASS |  |
-| 222 | POD01-LEAF1A | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 223 | POD01-LEAF1B | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 224 | POD01-LEAF2A | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 225 | POD01-LEAF2B | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 226 | POD01-SPINE1 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 227 | POD01-SPINE2 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 228 | POD01-SUBLEAF1A | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 229 | ROUTE-SERVER1 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 230 | SUPER-SPINE1 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 231 | SUPER-SPINE2 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
-| 232 | POD01-LEAF1A | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
-| 233 | POD01-LEAF1A | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
-| 234 | POD01-LEAF1B | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
-| 235 | POD01-LEAF1B | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
-| 236 | POD01-LEAF2A | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
-| 237 | POD01-LEAF2A | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
-| 238 | POD01-LEAF2B | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
-| 239 | POD01-LEAF2B | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
-| 240 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 241 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 242 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 243 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 244 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 245 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 246 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 247 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 248 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 249 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 250 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 251 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 252 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 253 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 254 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 255 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 256 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 257 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 258 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 259 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 260 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 261 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 262 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 263 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 264 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.3 | FAIL | Lo0 10.1.2.3 is not in the routing table |
-| 265 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.4 | FAIL | Lo0 10.1.2.4 is not in the routing table |
-| 266 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 267 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 268 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 269 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 270 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 271 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 272 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
-| 273 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
-| 274 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
-| 275 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
-| 276 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.3 | PASS |  |
-| 277 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.4 | PASS |  |
-| 278 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.5 | PASS |  |
-| 279 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.6 | PASS |  |
-| 280 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.3 | PASS |  |
-| 281 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.4 | PASS |  |
-| 282 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.5 | PASS |  |
-| 283 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.6 | PASS |  |
-| 284 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.3 | PASS |  |
-| 285 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.4 | PASS |  |
-| 286 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.5 | PASS |  |
-| 287 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.6 | PASS |  |
-| 288 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.3 | PASS |  |
-| 289 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.4 | PASS |  |
-| 290 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.5 | PASS |  |
-| 291 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.6 | PASS |  |
-| 292 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.3 | PASS |  |
-| 293 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.4 | PASS |  |
-| 294 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.5 | PASS |  |
-| 295 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.6 | PASS |  |
-| 296 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.3 | PASS |  |
-| 297 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.4 | PASS |  |
-| 298 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.5 | PASS |  |
-| 299 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.6 | PASS |  |
-| 300 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.3 | FAIL | 100% packet loss |
-| 301 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.4 | FAIL | 100% packet loss |
-| 302 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.5 | PASS |  |
-| 303 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.6 | PASS |  |
-| 304 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.3 | PASS |  |
-| 305 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.4 | PASS |  |
-| 306 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.5 | PASS |  |
-| 307 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.6 | PASS |  |
-| 308 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.3 | PASS |  |
-| 309 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.4 | PASS |  |
-| 310 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.5 | PASS |  |
-| 311 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.6 | PASS |  |
+| 210 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.3 | PASS |  |
+| 211 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.4 | PASS |  |
+| 212 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.5 | PASS |  |
+| 213 | ROUTE-SERVER1 | BGP | bgp evpn peer state established (evpn) | bgp_neighbor: 10.1.2.6 | PASS |  |
+| 214 | POD01-LEAF1A | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 215 | POD01-LEAF1B | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 216 | POD01-LEAF2A | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 217 | POD01-LEAF2B | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 218 | POD01-SPINE1 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 219 | POD01-SPINE2 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 220 | POD01-SUBLEAF1A | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 221 | ROUTE-SERVER1 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 222 | SUPER-SPINE1 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 223 | SUPER-SPINE2 | Reload Cause | Reload Cause: Reload requested by the user | Reload Cause | PASS |  |
+| 224 | POD01-LEAF1A | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
+| 225 | POD01-LEAF1A | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
+| 226 | POD01-LEAF1B | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
+| 227 | POD01-LEAF1B | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
+| 228 | POD01-LEAF2A | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
+| 229 | POD01-LEAF2A | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
+| 230 | POD01-LEAF2B | Routing Table | Remote Lo1 address | 10.1.5.3 | PASS |  |
+| 231 | POD01-LEAF2B | Routing Table | Remote Lo1 address | 10.1.5.5 | PASS |  |
+| 232 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 233 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 234 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 235 | POD01-LEAF1A | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 236 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 237 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 238 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 239 | POD01-LEAF1B | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 240 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 241 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 242 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 243 | POD01-LEAF2A | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 244 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 245 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 246 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 247 | POD01-LEAF2B | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 248 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 249 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 250 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 251 | POD01-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 252 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 253 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 254 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 255 | POD01-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 256 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 257 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 258 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 259 | ROUTE-SERVER1 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 260 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 261 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 262 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 263 | SUPER-SPINE1 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 264 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.3 | PASS |  |
+| 265 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.4 | PASS |  |
+| 266 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.5 | PASS |  |
+| 267 | SUPER-SPINE2 | Routing Table | Remote Lo0 address | 10.1.2.6 | PASS |  |
+| 268 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.3 | PASS |  |
+| 269 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.4 | PASS |  |
+| 270 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.5 | PASS |  |
+| 271 | POD01-LEAF1A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1A - 10.1.2.3 Destination: 10.1.2.6 | PASS |  |
+| 272 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.3 | PASS |  |
+| 273 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.4 | PASS |  |
+| 274 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.5 | PASS |  |
+| 275 | POD01-LEAF1B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF1B - 10.1.2.4 Destination: 10.1.2.6 | PASS |  |
+| 276 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.3 | PASS |  |
+| 277 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.4 | PASS |  |
+| 278 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.5 | PASS |  |
+| 279 | POD01-LEAF2A | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2A - 10.1.2.5 Destination: 10.1.2.6 | PASS |  |
+| 280 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.3 | PASS |  |
+| 281 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.4 | PASS |  |
+| 282 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.5 | PASS |  |
+| 283 | POD01-LEAF2B | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-LEAF2B - 10.1.2.6 Destination: 10.1.2.6 | PASS |  |
+| 284 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.3 | PASS |  |
+| 285 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.4 | PASS |  |
+| 286 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.5 | PASS |  |
+| 287 | POD01-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE1 - 10.1.2.1 Destination: 10.1.2.6 | PASS |  |
+| 288 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.3 | PASS |  |
+| 289 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.4 | PASS |  |
+| 290 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.5 | PASS |  |
+| 291 | POD01-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: POD01-SPINE2 - 10.1.2.2 Destination: 10.1.2.6 | PASS |  |
+| 292 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.3 | PASS |  |
+| 293 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.4 | PASS |  |
+| 294 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.5 | PASS |  |
+| 295 | ROUTE-SERVER1 | Loopback0 Reachability | Loopback0 Reachability | Source: ROUTE-SERVER1 - 10.1.3.1 Destination: 10.1.2.6 | PASS |  |
+| 296 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.3 | PASS |  |
+| 297 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.4 | PASS |  |
+| 298 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.5 | PASS |  |
+| 299 | SUPER-SPINE1 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE1 - 10.1.1.1 Destination: 10.1.2.6 | PASS |  |
+| 300 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.3 | PASS |  |
+| 301 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.4 | PASS |  |
+| 302 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.5 | PASS |  |
+| 303 | SUPER-SPINE2 | Loopback0 Reachability | Loopback0 Reachability | Source: SUPER-SPINE2 - 10.1.1.2 Destination: 10.1.2.6 | PASS |  |
