@@ -142,3 +142,31 @@ leaf_bgp_defaults:
   - graceful-restart restart-time 300
   - graceful-restart
 
+
+
+MU_PM1_LEAF1:
+      bgp_as: 65105
+      filter:
+        tenants: [ all ]
+        tags: [ srv, vdi, dc-mgmt, tep ]
+      nodes:
+        leaf-1a7-01.DC.MU:
+          id: 3
+          mgmt_ip: 10.0.110.105/24
+          spine_interfaces: [ Ethernet1, Ethernet1 ]
+
+custom_structured_configuration_router_ospf:
+  process_ids:
+    1:
+      vrf: Tenant_MU_DC_PROD
+      passive_interface_default: true
+      router_id: 10.0.253.5
+      log_adjacency_changes_detail: true
+      bfd_enable: false
+      no_passive_interfaces:
+        - Ethernet8
+      default_information_originate:
+        always: true
+      redistribute:
+        static:
+        connected:
