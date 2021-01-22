@@ -142,25 +142,7 @@ DNS domain lookup not defined
 
 ## NTP
 
-### NTP Summary
-
-- Local Interface: Management1
-
-- VRF: MGMT
-
-| Node | Primary |
-| ---- | ------- |
-| uk.pool.ntp.org | true |
-| fr.pool.ntp.org | - |
-
-### NTP Device Configuration
-
-```eos
-!
-ntp local-interface vrf MGMT Management1
-ntp server vrf MGMT uk.pool.ntp.org prefer
-ntp server vrf MGMT fr.pool.ntp.org
-```
+No NTP servers defined
 
 ## PTP
 
@@ -168,11 +150,7 @@ PTP is not defined.
 
 ## Management SSH
 
-```eos
-!
-management ssh
-   ip access-group ACL-SSH vrf default in
-```
+Management SSH not defined
 
 ## Management API GNMI
 
@@ -226,33 +204,11 @@ Enable password not defined
 
 ## TACACS Servers
 
-### TACACS Servers
-
-| VRF | TACACS Servers |
-| --- | ---------------|
-|  default | 1.2.3.4 |
-
-### TACACS Servers Device Configuration
-
-```eos
-!
-tacacs-server host 1.2.3.4 vrf default key 7 1234
-```
+TACACS servers not defined
 
 ## IP TACACS Source Interfaces
 
-### IP TACACS Source Interfaces
-
-| VRF | Source Interface Name |
-| --- | --------------- |
- default |Loopback0 |
-
-### IP TACACS Source Interfaces Device Configuration
-
-```eos
-!
-ip tacacs vrf default source-interface Loopback0
-```
+IP TACACS source interfaces not defined
 
 ## RADIUS Servers
 

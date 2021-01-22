@@ -43,13 +43,7 @@ name_server:
     vrf: MGMT
   nodes:
   - 1.2.3.4
-ntp_server:
-  local_interface:
-    vrf: MGMT
-    interface: Management1
-  nodes:
-  - uk.pool.ntp.org
-  - fr.pool.ntp.org
+ntp_server: null
 redundancy: null
 spanning_tree:
   mode: mstp
@@ -395,15 +389,6 @@ management_api_http:
   enable_https: true
   enable_vrfs:
     MGMT: null
-tacacs_servers:
-  hosts:
-  - host: 1.2.3.4
-    key: 1234
-    vrf: default
-ip_tacacs_source_interfaces:
-- name: Loopback0
-  vrf: default
-management_ssh:
-  access_groups:
-  - name: ACL-SSH
-    vrf: default
+ntp_servers:
+- uk.pool.ntp.org
+- fr.pool.ntp.org
