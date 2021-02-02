@@ -679,10 +679,9 @@ Router ISIS not defined
 | Settings | Value |
 | -------- | ----- |
 | Address Family | evpn |
-| Remote_as | 65100 |
 | Source | Loopback0 |
 | Bfd | true |
-| Ebgp multihop | 15 |
+| Ebgp multihop | 3 |
 | Send community | true |
 | Maximum routes | 0 (no limit) |
 
@@ -707,13 +706,13 @@ Router ISIS not defined
 
 ### BGP Neighbors
 
-| Neighbor | Remote AS |
-| -------- | ---------
-| 10.0.2.1 | 65000 |
-| 10.0.3.8 | Inherited from peer group IPv4-UNDERLAY-PEERS |
-| 10.0.3.10 | Inherited from peer group IPv4-UNDERLAY-PEERS |
-| 10.1.3.1 | 65000 |
-| 10.255.0.5 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER |
+| Neighbor | Remote AS | VRF |
+| -------- | --------- | --- |
+| 10.0.2.1 | 65000 | default |
+| 10.0.3.8 | Inherited from peer group IPv4-UNDERLAY-PEERS | default |
+| 10.0.3.10 | Inherited from peer group IPv4-UNDERLAY-PEERS | default |
+| 10.11.33.1 | 65000 | default |
+| 10.255.0.5 | Inherited from peer group MLAG-IPv4-UNDERLAY-PEER | default |
 
 ### Router BGP EVPN Address Family
 
@@ -745,10 +744,9 @@ router bgp 65102
    graceful-restart
    maximum-paths 4 ecmp 4
    neighbor EVPN-OVERLAY-PEERS peer group
-   neighbor EVPN-OVERLAY-PEERS remote-as 65100
    neighbor EVPN-OVERLAY-PEERS update-source Loopback0
    neighbor EVPN-OVERLAY-PEERS bfd
-   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 15
+   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 3
    neighbor EVPN-OVERLAY-PEERS password 7 q+VNViP5i4rVjW1cxFv2wA==
    neighbor EVPN-OVERLAY-PEERS send-community
    neighbor EVPN-OVERLAY-PEERS maximum-routes 0
@@ -769,9 +767,9 @@ router bgp 65102
    neighbor 10.0.2.1 description ROUTE-SERVER1
    neighbor 10.0.3.8 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.3.10 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.1.3.1 peer group EVPN-OVERLAY-PEERS
-   neighbor 10.1.3.1 remote-as 65000
-   neighbor 10.1.3.1 description ROUTE-SERVER1
+   neighbor 10.11.33.1 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.11.33.1 remote-as 65000
+   neighbor 10.11.33.1 description ROUTE-SERVER1
    neighbor 10.255.0.5 peer group MLAG-IPv4-UNDERLAY-PEER
    redistribute attached-host
    redistribute connected route-map RM-CONN-2-BGP
@@ -793,8 +791,6 @@ router bgp 65102
    !
    address-family evpn
       neighbor EVPN-OVERLAY-PEERS activate
-      no neighbor IPv4-UNDERLAY-PEERS activate
-      no neighbor MLAG-IPv4-UNDERLAY-PEER activate
    !
    address-family ipv4
       no neighbor EVPN-OVERLAY-PEERS activate

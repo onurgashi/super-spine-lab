@@ -355,7 +355,7 @@ No port-channels defined
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | EVPN_Overlay_Peering | default | 10.1.3.1/32 |
+| Loopback0 | EVPN_Overlay_Peering | default | 10.11.33.1/32 |
 
 #### IPv6
 
@@ -371,7 +371,7 @@ No port-channels defined
 interface Loopback0
    description EVPN_Overlay_Peering
    no shutdown
-   ip address 10.1.3.1/32
+   ip address 10.11.33.1/32
 ```
 
 ## VLAN Interfaces
@@ -450,7 +450,7 @@ Router ISIS not defined
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65000|  10.1.3.1 |
+| 65000|  10.11.33.1 |
 
 | BGP Tuning |
 | ---------- |
@@ -470,7 +470,7 @@ Router ISIS not defined
 | Next-hop unchanged | True |
 | Source | Loopback0 |
 | Bfd | true |
-| Ebgp multihop | 15 |
+| Ebgp multihop | 3 |
 | Send community | true |
 | Maximum routes | 0 (no limit) |
 
@@ -483,14 +483,17 @@ Router ISIS not defined
 
 ### BGP Neighbors
 
-| Neighbor | Remote AS |
-| -------- | ---------
-| 10.0.2.0 | 65102 |
-| 10.0.2.2 | 65102 |
-| 10.1.2.3 | 65101 |
-| 10.1.2.4 | 65101 |
-| 10.1.2.5 | 65102 |
-| 10.1.2.6 | 65102 |
+| Neighbor | Remote AS | VRF |
+| -------- | --------- | --- |
+| 10.0.2.0 | 65102 | default |
+| 10.0.2.2 | 65102 | default |
+| 10.1.2.3 | 65101 | default |
+| 10.1.2.4 | 65101 | default |
+| 10.1.2.5 | 65102 | default |
+| 10.1.2.6 | 65102 | default |
+| 10.1.3.3 | 65501 | default |
+| 10.1.3.4 | 65501 | default |
+| 10.1.3.5 | 65502 | default |
 
 ### Router BGP EVPN Address Family
 
@@ -503,7 +506,7 @@ Router ISIS not defined
 ```eos
 !
 router bgp 65000
-   router-id 10.1.3.1
+   router-id 10.11.33.1
    no bgp default ipv4-unicast
    distance bgp 20 200 200
    graceful-restart restart-time 300
@@ -513,7 +516,7 @@ router bgp 65000
    neighbor EVPN-OVERLAY-PEERS next-hop-unchanged
    neighbor EVPN-OVERLAY-PEERS update-source Loopback0
    neighbor EVPN-OVERLAY-PEERS bfd
-   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 15
+   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 3
    neighbor EVPN-OVERLAY-PEERS password 7 q+VNViP5i4rVjW1cxFv2wA==
    neighbor EVPN-OVERLAY-PEERS send-community
    neighbor EVPN-OVERLAY-PEERS maximum-routes 0
@@ -538,11 +541,19 @@ router bgp 65000
    neighbor 10.1.2.6 peer group EVPN-OVERLAY-PEERS
    neighbor 10.1.2.6 remote-as 65102
    neighbor 10.1.2.6 description POD01-LEAF2B
+   neighbor 10.1.3.3 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.3 remote-as 65501
+   neighbor 10.1.3.3 description POD02-LEAF3A
+   neighbor 10.1.3.4 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.4 remote-as 65501
+   neighbor 10.1.3.4 description POD02-LEAF3B
+   neighbor 10.1.3.5 peer group EVPN-OVERLAY-PEERS
+   neighbor 10.1.3.5 remote-as 65502
+   neighbor 10.1.3.5 description POD02-LEAF4A
    redistribute connected route-map RM-CONN-2-BGP
    !
    address-family evpn
       neighbor EVPN-OVERLAY-PEERS activate
-      no neighbor IPv4-UNDERLAY-PEERS activate
    !
    address-family ipv4
       no neighbor EVPN-OVERLAY-PEERS activate
@@ -597,7 +608,7 @@ No peer filters defined
 
 | Sequence | Action |
 | -------- | ------ |
-| 10 | permit 10.1.3.0/24 eq 32 |
+| 10 | permit 10.11.33.0/24 eq 32 |
 
 #### PL-P2P-UNDERLAY
 
@@ -610,7 +621,7 @@ No peer filters defined
 ```eos
 !
 ip prefix-list PL-LOOPBACKS-EVPN-OVERLAY
-   seq 10 permit 10.1.3.0/24 eq 32
+   seq 10 permit 10.11.33.0/24 eq 32
 !
 ip prefix-list PL-P2P-UNDERLAY
    seq 10 permit 10.0.2.0/24 le 31

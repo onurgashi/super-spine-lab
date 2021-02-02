@@ -42,6 +42,32 @@ all:
                   hosts:
                     POD01-SUBLEAF1A:
                       ansible_port: 8009
+        POD02:
+          children:
+            POD02_SPINES:
+              hosts:
+                POD02-SPINE3:
+                  ansible_port: 8011
+                POD02-SPINE4:
+                  ansible_port: 8012
+            POD02_L3LEAFS:
+              children:
+                POD02_LEAF3:
+                  hosts:
+                    POD02-LEAF3A:
+                      ansible_port: 8013
+                    POD02-LEAF3B:
+                      ansible_port: 8014
+                POD02_LEAF4:
+                  hosts:
+                    POD02-LEAF4A:
+                      ansible_port: 8015
+            POD02_SUBLEAFS:
+              children:
+                POD02_SUBLEAF2:
+                  hosts:
+                    POD02-SUBLEAF2A:
+                      ansible_port: 8016
       vars:
         ansible_host: 10.83.28.157
         ansible_connection: httpapi
@@ -60,9 +86,14 @@ all:
       children:
         POD01_L3LEAFS:
         POD01_SUBLEAFS:
+        POD02_L3LEAFS:
+        POD03_SUBLEAFS:
+
 
     SERVERS:
       children:
         POD01_L3LEAFS:
         POD01_SUBLEAFS:
+        POD02_L3LEAFS:
+        POD03_SUBLEAFS:
 

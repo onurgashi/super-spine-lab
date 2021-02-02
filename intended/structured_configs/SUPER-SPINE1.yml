@@ -1,5 +1,10 @@
 switch_platform: vEOS-LAB
 switch_mgmt_ip: 192.168.1.1/24
+switch_bgp_as: 65001
+switch_router_id: 10.1.1.1
+switch_evpn_role: none
+switch_evpn_route_servers: []
+switch_evpn_route_clients: []
 service_routing_protocols_model: multi-agent
 ip_routing: true
 hardware_counters: null
@@ -37,27 +42,7 @@ bfd_multihop:
   interval: 1200
   min_rx: 1200
   multiplier: 3
-ethernet_interfaces:
-  Ethernet1:
-    peer: POD01-SPINE1
-    peer_interface: Ethernet1
-    peer_type: spine
-    description: P2P_LINK_TO_POD01-SPINE1_Ethernet1
-    mtu: 1500
-    service_profile: blah
-    type: routed
-    shutdown: false
-    ip_address: 10.0.1.0/31
-  Ethernet2:
-    peer: POD01-SPINE2
-    peer_interface: Ethernet1
-    peer_type: spine
-    description: P2P_LINK_TO_POD01-SPINE2_Ethernet1
-    mtu: 1500
-    service_profile: blah
-    type: routed
-    shutdown: false
-    ip_address: 10.0.1.2/31
+ethernet_interfaces: null
 loopback_interfaces:
   Loopback0:
     description: EVPN_Overlay_Peering
@@ -104,20 +89,11 @@ router_bgp:
       password: AQQvKeimxJu+uGQ/yYvv9w==
       maximum_routes: 12000
       send_community: true
-  neighbors:
-    10.0.1.1:
-      peer_group: IPv4-UNDERLAY-PEERS
-      remote_as: 65100
-    10.0.1.3:
-      peer_group: IPv4-UNDERLAY-PEERS
-      remote_as: 65100
+  neighbors: null
   redistribute_routes:
     connected:
       route_map: RM-CONN-2-BGP
-  address_family_evpn:
-    peer_groups:
-      IPv4-UNDERLAY-PEERS:
-        activate: false
+  address_family_evpn: null
   address_family_ipv4:
     peer_groups:
       IPv4-UNDERLAY-PEERS:

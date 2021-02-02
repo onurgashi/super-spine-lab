@@ -494,18 +494,6 @@ Router ISIS not defined
 
 ### Router BGP Peer Groups
 
-#### EVPN-OVERLAY-PEERS
-
-| Settings | Value |
-| -------- | ----- |
-| Address Family | evpn |
-| Next-hop unchanged | True |
-| Source | Loopback0 |
-| Bfd | true |
-| Ebgp multihop | 15 |
-| Send community | true |
-| Maximum routes | 0 (no limit) |
-
 #### IPv4-UNDERLAY-PEERS
 
 | Settings | Value |
@@ -516,14 +504,14 @@ Router ISIS not defined
 
 ### BGP Neighbors
 
-| Neighbor | Remote AS |
-| -------- | ---------
-| 10.0.1.0 | 65001 |
-| 10.0.1.64 | 65001 |
-| 10.0.3.1 | 65101 |
-| 10.0.3.5 | 65101 |
-| 10.0.3.9 | 65102 |
-| 10.0.3.13 | 65102 |
+| Neighbor | Remote AS | VRF |
+| -------- | --------- | --- |
+| 10.0.1.0 | 65001 | default |
+| 10.0.1.64 | 65001 | default |
+| 10.0.3.1 | 65101 | default |
+| 10.0.3.5 | 65101 | default |
+| 10.0.3.9 | 65102 | default |
+| 10.0.3.13 | 65102 | default |
 
 ### Router BGP EVPN Address Family
 
@@ -542,14 +530,6 @@ router bgp 65100
    graceful-restart restart-time 300
    graceful-restart
    maximum-paths 4 ecmp 4
-   neighbor EVPN-OVERLAY-PEERS peer group
-   neighbor EVPN-OVERLAY-PEERS next-hop-unchanged
-   neighbor EVPN-OVERLAY-PEERS update-source Loopback0
-   neighbor EVPN-OVERLAY-PEERS bfd
-   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 15
-   neighbor EVPN-OVERLAY-PEERS password 7 q+VNViP5i4rVjW1cxFv2wA==
-   neighbor EVPN-OVERLAY-PEERS send-community
-   neighbor EVPN-OVERLAY-PEERS maximum-routes 0
    neighbor IPv4-UNDERLAY-PEERS peer group
    neighbor IPv4-UNDERLAY-PEERS password 7 AQQvKeimxJu+uGQ/yYvv9w==
    neighbor IPv4-UNDERLAY-PEERS send-community
@@ -567,10 +547,6 @@ router bgp 65100
    neighbor 10.0.3.13 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.3.13 remote-as 65102
    redistribute connected route-map RM-CONN-2-BGP
-   !
-   address-family evpn
-      neighbor EVPN-OVERLAY-PEERS activate
-      no neighbor IPv4-UNDERLAY-PEERS activate
    !
    address-family ipv4
       no neighbor EVPN-OVERLAY-PEERS activate

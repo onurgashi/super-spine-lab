@@ -308,40 +308,7 @@ No Interface Defaults defined
 
 ## Ethernet Interfaces
 
-### Ethernet Interfaces Summary
-
-#### L2
-
-| Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
-| --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-
-*Inherited from Port-Channel Interface
-
-#### IPv4
-
-| Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
-| --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 |  P2P_LINK_TO_POD01-SPINE1_Ethernet1  |  routed  | - |  10.0.1.0/31  |  default  |  1500  |  false  |  -  |  -  |
-| Ethernet2 |  P2P_LINK_TO_POD01-SPINE2_Ethernet1  |  routed  | - |  10.0.1.2/31  |  default  |  1500  |  false  |  -  |  -  |
-
-### Ethernet Interfaces Device Configuration
-
-```eos
-!
-interface Ethernet1
-   description P2P_LINK_TO_POD01-SPINE1_Ethernet1
-   no shutdown
-   no switchport
-   ip address 10.0.1.0/31
-   service-profile blah
-!
-interface Ethernet2
-   description P2P_LINK_TO_POD01-SPINE2_Ethernet1
-   no shutdown
-   no switchport
-   ip address 10.0.1.2/31
-   service-profile blah
-```
+No ethernet interface defined
 
 ## Port-Channel Interfaces
 
@@ -470,13 +437,6 @@ Router ISIS not defined
 | Send community | true |
 | Maximum routes | 12000 |
 
-### BGP Neighbors
-
-| Neighbor | Remote AS |
-| -------- | ---------
-| 10.0.1.1 | 65100 |
-| 10.0.1.3 | 65100 |
-
 ### Router BGP EVPN Address Family
 
 #### Router BGP EVPN MAC-VRFs
@@ -498,14 +458,7 @@ router bgp 65001
    neighbor IPv4-UNDERLAY-PEERS password 7 AQQvKeimxJu+uGQ/yYvv9w==
    neighbor IPv4-UNDERLAY-PEERS send-community
    neighbor IPv4-UNDERLAY-PEERS maximum-routes 12000
-   neighbor 10.0.1.1 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.1.1 remote-as 65100
-   neighbor 10.0.1.3 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.1.3 remote-as 65100
    redistribute connected route-map RM-CONN-2-BGP
-   !
-   address-family evpn
-      no neighbor IPv4-UNDERLAY-PEERS activate
    !
    address-family ipv4
       no neighbor EVPN-OVERLAY-PEERS activate

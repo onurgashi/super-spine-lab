@@ -2,8 +2,7 @@
 # L3LS Fabric Values - update these values with caution,
 # SOME CHANGES COULD BE DISRUPTIVE.
 
-fabric_name: POD01
-pod_number: 1
+pod_name: POD01
 
 # Point to Point Network Summary range, assigned as /31 for each
 # uplink interfaces
@@ -46,6 +45,7 @@ spine:
   nodes:
     POD01-SPINE1:
       id: 1
+      evpn_role: none
       mgmt_ip: 192.168.1.3/24
       # super-spine interfaces to spines
       # taking `max_spine_to_super_spine_links` into account
@@ -54,6 +54,7 @@ spine:
       super_spine_interfaces: ['Ethernet1', 'Ethernet1']
     POD01-SPINE2:
       id: 2
+      evpn_role: none
       mgmt_ip: 192.168.1.4/24
       # super-spine interfaces to spines
       # taking `max_spine_to_super_spine_links` into account
@@ -77,6 +78,7 @@ l3leaf:
     mlag_interfaces: [ Ethernet3 ]
     spanning_tree_priority: 4096
     spanning_tree_mode: mstp
+    evpn_route_servers: ['ROUTE-SERVER1']
   node_groups:
     POD01_LEAF1:
       bgp_as: 65101

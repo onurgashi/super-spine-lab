@@ -53,6 +53,7 @@ local_users:
 clock: null
 vlans:
   4092:
+    tenant: system
     name: L2LEAF_INBAND_MGMT
   110:
     tenant: Tenant_A

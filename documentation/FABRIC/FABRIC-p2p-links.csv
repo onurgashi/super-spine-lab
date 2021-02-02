@@ -1,7 +1,25 @@
-type, Super-Spine Node,Super-Spine Interface,Super-Spine IP Address,Peer Node,Peer Interface,Peer IP Address
-overlay-controller,ROUTE-SERVER1,Ethernet1,10.0.2.1/31,POD01-LEAF2A,Ethernet4,10.0.2.0/31
-overlay-controller,ROUTE-SERVER1,Ethernet2,10.0.2.3/31,POD01-LEAF2B,Ethernet4,10.0.2.2/31
-super-spine,SUPER-SPINE1,Ethernet1,10.0.1.0/31,POD01-SPINE1,Ethernet1,10.0.1.1/31
-super-spine,SUPER-SPINE1,Ethernet2,10.0.1.2/31,POD01-SPINE2,Ethernet1,10.0.1.3/31
-super-spine,SUPER-SPINE2,Ethernet1,10.0.1.64/31,POD01-SPINE1,Ethernet2,10.0.1.65/31
-super-spine,SUPER-SPINE2,Ethernet2,10.0.1.66/31,POD01-SPINE2,Ethernet2,10.0.1.67/31
+type, Node,Node Interface,Leaf IP Address,Peer Node,Peer Interface,Peer IP Address
+l3leaf,POD01-LEAF1A,Ethernet1,10.0.3.1/31,spine,POD01-SPINE1,Ethernet3,10.0.3.0/31
+l3leaf,POD01-LEAF1A,Ethernet2,10.0.3.3/31,spine,POD01-SPINE2,Ethernet3,10.0.3.2/31
+l3leaf,POD01-LEAF1B,Ethernet1,10.0.3.5/31,spine,POD01-SPINE1,Ethernet4,10.0.3.4/31
+l3leaf,POD01-LEAF1B,Ethernet2,10.0.3.7/31,spine,POD01-SPINE2,Ethernet4,10.0.3.6/31
+l3leaf,POD01-LEAF2A,Ethernet1,10.0.3.9/31,spine,POD01-SPINE1,Ethernet5,10.0.3.8/31
+l3leaf,POD01-LEAF2A,Ethernet2,10.0.3.11/31,spine,POD01-SPINE2,Ethernet5,10.0.3.10/31
+l3leaf,POD01-LEAF2B,Ethernet1,10.0.3.13/31,spine,POD01-SPINE1,Ethernet6,10.0.3.12/31
+l3leaf,POD01-LEAF2B,Ethernet2,10.0.3.15/31,spine,POD01-SPINE2,Ethernet6,10.0.3.14/31
+spine,POD01-SPINE1,Ethernet1,10.0.1.1/31,super-spine,SUPER-SPINE1,Ethernet1,
+spine,POD01-SPINE1,Ethernet2,10.0.1.65/31,super-spine,SUPER-SPINE2,Ethernet1,
+spine,POD01-SPINE2,Ethernet1,10.0.1.3/31,super-spine,SUPER-SPINE1,Ethernet2,
+spine,POD01-SPINE2,Ethernet2,10.0.1.67/31,super-spine,SUPER-SPINE2,Ethernet2,
+l3leaf,POD02-LEAF3A,Ethernet1,10.0.4.1/31,spine,POD02-SPINE3,Ethernet3,10.0.4.0/31
+l3leaf,POD02-LEAF3A,Ethernet2,10.0.4.3/31,spine,POD02-SPINE4,Ethernet3,10.0.4.2/31
+l3leaf,POD02-LEAF3B,Ethernet1,10.0.4.5/31,spine,POD02-SPINE3,Ethernet4,10.0.4.4/31
+l3leaf,POD02-LEAF3B,Ethernet2,10.0.4.7/31,spine,POD02-SPINE4,Ethernet4,10.0.4.6/31
+l3leaf,POD02-LEAF4A,Ethernet1,10.0.4.9/31,spine,POD02-SPINE3,Ethernet5,10.0.4.8/31
+l3leaf,POD02-LEAF4A,Ethernet2,10.0.4.11/31,spine,POD02-SPINE4,Ethernet5,10.0.4.10/31
+spine,POD02-SPINE3,Ethernet1,10.0.11.1/31,super-spine,SUPER-SPINE1,Ethernet3,
+spine,POD02-SPINE3,Ethernet2,10.0.11.65/31,super-spine,SUPER-SPINE2,Ethernet3,
+spine,POD02-SPINE4,Ethernet1,10.0.11.3/31,super-spine,SUPER-SPINE1,Ethernet4,
+spine,POD02-SPINE4,Ethernet2,10.0.11.67/31,super-spine,SUPER-SPINE2,Ethernet4,
+overlay-controller,ROUTE-SERVER1,Ethernet1,10.0.2.1/31,l3leaf,POD01-LEAF2A,Ethernet4,10.0.2.0/31
+overlay-controller,ROUTE-SERVER1,Ethernet2,10.0.2.3/31,l3leaf,POD01-LEAF2B,Ethernet4,10.0.2.2/31
